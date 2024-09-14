@@ -2,5 +2,6 @@
 {
     public interface IRental
     {
+        void Update(Rental obj);
     }
 }

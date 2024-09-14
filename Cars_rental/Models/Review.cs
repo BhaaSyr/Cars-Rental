@@ -1,29 +1,26 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using MongoDB.EntityFrameworkCore;
 
-namespace Cars_rental.Models
-{
-    public class Review
+
+[Collection("reviews")]
+public class Review
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
 
-        [BsonElement("user_id")]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string UserId { get; set; }
+        public ObjectId Id { get; set; }
 
-        [BsonElement("car_id")]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string CarId { get; set; }
 
-        [BsonElement("review_date")]
+        public ObjectId UserId { get; set; }
+
+
+        public ObjectId CarId { get; set; }
+
+
         public DateTime ReviewDate { get; set; }
 
-        [BsonElement("comment")]
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
 
-        [BsonElement("satrs")]
+
         public int Stars { get; set; }
     }
-}
+

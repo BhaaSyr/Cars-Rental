@@ -1,19 +1,40 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
+using MongoDB.EntityFrameworkCore.Extensions;
 
 namespace Cars_rental.Data
 {
     public class AppDbContext : DbContext
     {
-        private readonly IMongoDatabase _database;
-        public string ConnectionString {  get; set; }
-        public string Database { get; set; }
+        public DbSet<Car> Cars { get; init; }
+        public DbSet<Rental> Rentals { get; init; }
+        public DbSet<Location> Locations { get; init; }
+        public DbSet<Payment> Payments { get; init; }
+        public DbSet<Review> Reviews { get; init; }
+        public DbSet<User> Users { get; init; }
 
-        public IMongoCollection<User> Users => _database.GetCollection<User>("users");
-        public IMongoCollection<Car> Cars => _database.GetCollection<Car>("cars");
-        public IMongoCollection<Rental> Rentals => _database.GetCollection<Rental>("rentals");
-        public IMongoCollection<Payment> Payments => _database.GetCollection<Payment>("payments");
-        public IMongoCollection<Location> Locations => _database.GetCollection<Location>("locations");
+        public AppDbContext(DbContextOptions options) : base(options)
+        {       
+                
+        }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+
+            modelBuilder.Entity<Car>() ;
+            modelBuilder.Entity<Location>();
+            modelBuilder.Entity<Payment>();
+            modelBuilder.Entity<Rental>();
+            modelBuilder.Entity<Review>();
+            modelBuilder.Entity<User>();
+        }
+
         
+
+        
+
     }
 }
